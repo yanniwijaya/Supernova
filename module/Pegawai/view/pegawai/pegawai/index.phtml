@@ -1,0 +1,31 @@
+<?php
+// module/Album/view/album/album/index.phtml:
+
+$title = 'Data Pegawai';
+$this->headTitle($title);
+?>
+
+<h1><?php echo $this->escapeHtml($title);?></h1>
+<p>
+    <a href="<?php echo $this->url('pegawai', array('action'=>'add')); ?>">Add pegawai baru</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>Nama</th>
+        <th>NIP</th>
+        <th>&nbsp;</th>              
+    </tr>
+    <?php foreach ($pegawais as $pegawai) : ?>
+    <tr>
+        <td><?php $this->escapeHtml($pegawai->nama);?></td>
+        <td><?php $this->escapeHtml($pegawai->nip);?></td>
+        <td>
+            <a href="<?php echo $this->url('pegawai',array('action'=>'edit', 
+                'id' => $pegawai->id)); ?>">Edit</a>
+            <a href="<?php echo $this->url('pegawai',array('action'=>'delete', 
+                'id' => $pegawai->id)); ?>">Delete</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>
