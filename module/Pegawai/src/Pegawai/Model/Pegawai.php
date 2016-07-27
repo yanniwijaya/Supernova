@@ -23,12 +23,27 @@ class Pegawai implements InputFilterAwareInterface{
     public $id;
     public $nama;
     public $nip;
+    public $mail;
+    public $jabatan;
+    public $status;
+    public $gender;
+    public $jenjang_jabatan;
+    public $unit;
+    public $sub_unit;
+    
     protected $inputFilter;
     
     public function exchangeArray($data) {
         $this->id   = (!empty($data['id'])) ? $data['id'] : null;
-        $this->nama = (!empty($data['nama'])) ? $data['nama'] : null;
-        $this->nip   = (!empty($data['nip'])) ? $data['nip'] : null;
+        $this->nama = (!empty($data['Nama'])) ? $data['Nama'] : null;
+        $this->nip   = (!empty($data['NIP'])) ? $data['NIP'] : null;
+        $this->mail   = (!empty($data['Mail'])) ? $data['Mail'] : null;
+        $this->jabatan   = (!empty($data['Jabatan'])) ? $data['Jabatan'] : null;
+        $this->status   = (!empty($data['Status'])) ? $data['Status'] : null;
+        $this->gender   = (!empty($data['Gender'])) ? $data['Gender'] : null;
+        $this->jenjang_jabatan   = (!empty($data['Jenjang_Jabatan'])) ? $data['Jenjang_Jabatan'] : null;
+        $this->unit   = (!empty($data['Unit'])) ? $data['Unit'] : null;
+        $this->sub_unit   = (!empty($data['Sub_Unit'])) ? $data['Sub_Unit'] : null;
     }
     
     public function setInputFilter(InputFilterInterface $inputFilter)
