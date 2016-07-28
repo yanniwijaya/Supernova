@@ -1,5 +1,5 @@
 <?php
-// module/Album/view/album/album/index.phtml:
+// module/Pegawai/view/pegawai/pegawai/index.phtml:
 
 $title = 'Data Pegawai';
 $this->headTitle($title);
@@ -26,7 +26,8 @@ $this->headTitle($title);
     
     <?php   
         $i = 0;
-        $maxIteration = 10; 
+        $maksItemDitampilkan = 1000;
+
         foreach ($pegawais as $pegawai) :  
     ?>
     
@@ -48,7 +49,7 @@ $this->headTitle($title);
         </td>
     </tr>
     <?php
-        if ($i <= $maxIteration) {
+        if ($i <= $maksItemDitampilkan) {
             $i++;
         }
         else {
