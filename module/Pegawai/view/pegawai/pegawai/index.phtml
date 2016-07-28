@@ -1,5 +1,5 @@
 <?php
-// module/Album/view/album/album/index.phtml:
+// module/Pegawai/view/pegawai/pegawai/index.phtml:
 
 $title = 'Data Pegawai';
 $this->headTitle($title);
@@ -14,12 +14,33 @@ $this->headTitle($title);
     <tr>
         <th>Nama</th>
         <th>NIP</th>
+        <th>Mail</th>
+        <th>Jabatan</th>
+        <th>Status</th>
+        <th>Gender</th>
+        <th>Jenjang Jabatan</th>
+        <th>Sub Unit</th>
+        <th>Unit</th>
         <th>&nbsp;</th>              
     </tr>
-    <?php foreach ($pegawais as $pegawai) : ?>
+    
+    <?php   
+        $i = 0;
+        $maksItemDitampilkan = 1000;
+
+        foreach ($pegawais as $pegawai) :  
+    ?>
+    
     <tr>
-        <td><?php $this->escapeHtml($pegawai->nama);?></td>
-        <td><?php $this->escapeHtml($pegawai->nip);?></td>
+        <td><?php echo $this->escapeHtml($pegawai->nama);?></td>
+        <td><?php echo $this->escapeHtml($pegawai->nip);?></td>
+        <td><?php echo $this->escapeHtml($pegawai->mail);?></td>
+        <td><?php echo $this->escapeHtml($pegawai->jabatan);?></td>
+        <td><?php echo $this->escapeHtml($pegawai->status);?></td>
+        <td><?php echo $this->escapeHtml($pegawai->gender);?></td>
+        <td><?php echo $this->escapeHtml($pegawai->jenjang_jabatan);?></td>
+        <td><?php echo $this->escapeHtml($pegawai->sub_unit);?></td>
+        <td><?php echo $this->escapeHtml($pegawai->unit);?></td>
         <td>
             <a href="<?php echo $this->url('pegawai',array('action'=>'edit', 
                 'id' => $pegawai->id)); ?>">Edit</a>
@@ -27,5 +48,14 @@ $this->headTitle($title);
                 'id' => $pegawai->id)); ?>">Delete</a>
         </td>
     </tr>
-    <?php endforeach; ?>
+    <?php
+        if ($i <= $maksItemDitampilkan) {
+            $i++;
+        }
+        else {
+            break;
+        }
+        
+        endforeach;
+    ?>
 </table>

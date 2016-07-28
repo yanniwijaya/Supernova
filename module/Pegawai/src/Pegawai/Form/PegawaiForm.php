@@ -37,7 +37,7 @@ class PegawaiForm extends Form{
             'name' => 'nip',
             'type' => 'Text',
             'options' => array(
-                'label' => 'NIP',
+                'label' => 'Nip',
             ),
         ));
         $this->add(array(
