@@ -42,15 +42,17 @@ class PegawaiTable {
     public function savePegawai(Pegawai $pegawai){
         $data = array(
             'nama'  => $pegawai->nama,
-            'nip'   => $pegawai->nip,
+            'nip'   => $pegawai->nip
         );
         
         $id = (int) $pegawai->id;
         if ($id == 0) {
             $this->tableGateway->insert($data);
+            //throw new Exception('Data berhasil di tambahkan');
         } else {    
             if ($this->getPegawai($id)) {
                 $this->tableGateway->update($data, array('id' => $id));
+                //throw new Exception('Data berhasil di update');
             } else {
                 throw new Exception('Data pegawai tidak ditemukan');
             }

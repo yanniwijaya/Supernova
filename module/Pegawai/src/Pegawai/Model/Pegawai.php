@@ -23,14 +23,29 @@ class Pegawai implements InputFilterAwareInterface{
     public $id;
     public $nama;
     public $nip;
+    public $mail;
+    public $jabatan;
+    public $status;
+    public $gender;
+    public $jenjang_jabatan;
+    public $unit;
+    public $sub_unit;
     protected $inputFilter;
     
-    public function exchangeArray($data) {
-        $this->id   = (!empty($data['id'])) ? $data['id'] : null;
-        $this->nama = (!empty($data['nama'])) ? $data['nama'] : null;
-        $this->nip   = (!empty($data['nip'])) ? $data['nip'] : null;
+    public function exchangeArray($data) 
+    {
+        $this->id       = (!empty($data['id']))     ? $data['id']    : null;
+        $this->nama     = (!empty($data['nama']))   ? $data['nama']  : null;
+        $this->nip      = (!empty($data['nip']))    ? $data['nip']   : null;
+        $this->mail     = (!empty($data['mail']))   ? $data['mail']  : null;
+        $this->jabatan  = (!empty($data['jabatan']))? $data['jabatan'] : null;
+        $this->status   = (!empty($data['status'])) ? $data['status']: null;
+        $this->gender   = (!empty($data['gender'])) ? $data['gender']: null;
+        $this->jenjang_jabatan   = (!empty($data['jenjang_jabatan'])) ? $data['jenjang_jabatan'] : null;
+        $this->unit     = (!empty($data['unit']))   ? $data['unit']  : null;
+        $this->sub_unit = (!empty($data['sub_unit'])) ? $data['sub_unit'] : null;
     }
-    
+         
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
         throw new \Exception("Not used");
@@ -69,29 +84,28 @@ class Pegawai implements InputFilterAwareInterface{
         $inputFilter->add(array(
             'name' => 'nip',
             'required' => true,
-                'filters' => array(
-                    array('name' => 'StripTags'),
-                        array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name' => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min' => 1,
-                            'max' => 100,
-                        ),
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 100,
                     ),
+                ),
                 ),
             ));
             $this->inputFilter = $inputFilter;
         }
         return $this->inputFilter;
     }
-  
-     // Add the following method:
-     public function getArrayCopy()
-     {
-         return get_object_vars($this);
-     }
+    
+    public function getArrayCopy()
+    {
+        return get_object_vars($this);
+    }
 }
