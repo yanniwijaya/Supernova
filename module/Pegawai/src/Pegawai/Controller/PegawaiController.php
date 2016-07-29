@@ -33,9 +33,19 @@ class PegawaiController extends AbstractActionController{
     }
     
     public function indexAction() {
-        return new ViewModel( array(
-            'pegawais' => $this->getPegawaiTable()->fetchAll(),
-        ));
+//        return new ViewModel( array(
+//            'pegawais' => $this->getPegawaiTable()->fetchAll(),
+//        ));
+         // grab the paginator from the PegawaiTable
+         $paginator = $this->getPegawaiTable()->fetchAll(true);
+         // set the current page to what has been passed in query string, or to 1 if none set
+         $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
+         // set the number of items per page to 10
+         $paginator->setItemCountPerPage(10);
+
+         return new ViewModel(array(
+             'paginator' => $paginator
+         ));
     }
     
     public function addAction() {
@@ -115,7 +125,7 @@ class PegawaiController extends AbstractActionController{
                  $this->getPegawaiTable()->deletePegawai($id);
              }
 
-             // Redirect to list of albums
+             // Redirect to list of pegawai
              return $this->redirect()->toRoute('pegawai');
          }
 

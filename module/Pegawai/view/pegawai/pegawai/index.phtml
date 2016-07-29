@@ -10,7 +10,7 @@ $this->headTitle($title);
     <a href="<?php echo $this->url('pegawai', array('action'=>'add')); ?>">Add pegawai baru</a>
 </p>
 
-<table class="table">
+<!--<table class="table">
     <tr>
         <th>Nama</th>
         <th>NIP</th>
@@ -24,12 +24,12 @@ $this->headTitle($title);
         <th>&nbsp;</th>              
     </tr>
     
-    <?php   
-        $i = 0;
-        $maksItemDitampilkan = 1000;
-
-        foreach ($pegawais as $pegawai) :  
-    ?>
+    //<?php   
+//        $i = 0;
+//        $maksItemDitampilkan = 1000;
+//
+//        foreach ($pegawais as $pegawai) :  
+//    ?>
     
     <tr>
         <td><?php echo $this->escapeHtml($pegawai->nama);?></td>
@@ -48,14 +48,40 @@ $this->headTitle($title);
                 'id' => $pegawai->id)); ?>">Delete</a>
         </td>
     </tr>
-    <?php
-        if ($i <= $maksItemDitampilkan) {
-            $i++;
-        }
-        else {
-            break;
-        }
-        
-        endforeach;
-    ?>
-</table>
+</table>-->
+
+<table class="table">
+     <tr>
+         <th>Nama</th>
+         <th>NIP</th>
+         <th>&nbsp;</th>
+     </tr>
+     <?php foreach ($this->paginator as $pegawai) : // <-- change here! ?>
+         <tr>
+             <td><?php echo $this->escapeHtml($pegawai->nama);?></td>
+             <td><?php echo $this->escapeHtml($pegawai->nip);?></td>
+             <td>
+                 <a href="<?php echo $this->url('pegawai',
+                     array('action' => 'edit', 'id' => $pegawai->id));?>">Edit</a>
+                 <a href="<?php echo $this->url('pegawai',
+                     array('action' => 'delete', 'id' => $pegawai->id));?>">Delete</a>
+             </td>
+         </tr>
+     <?php endforeach; ?>
+ </table>
+                
+ <?php
+ // add at the end of the file after the table
+ echo $this->paginationControl(
+     // the paginator object
+     $this->paginator,
+     // the scrolling style
+     'sliding',
+     // the partial to use to render the control
+     'partial/paginator.phtml',
+     // the route to link to when a user clicks a control link
+     array(
+         'route' => 'pegawai'
+     )
+ );
+ ?>

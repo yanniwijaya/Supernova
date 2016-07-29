@@ -61,6 +61,7 @@ return array(
         ),
         'factories' => array(
             'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
+            'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
         ),
     ),
     'translator' => array(
@@ -101,4 +102,35 @@ return array(
             ),
         ),
     ),
+    
+    'navigation' => array(
+        'default' => array(
+            array(
+                'label' => 'Home',
+                'route' => 'home',
+            ),
+            array(
+                'label' => 'Pegawai',
+                'route' => 'pegawai',
+                'pages' => array(
+                    array(
+                        'label' => 'Add',
+                        'route' => 'pegawai',
+                        'action' => 'add',
+                    ),
+                    array(
+                        'label' => 'Edit',
+                        'route' => 'pegawai',
+                        'action' => 'edit',
+                    ),
+                    array(
+                        'label' => 'Delete',
+                        'route' => 'pegawai',
+                        'action' => 'delete',
+                    ),
+                ),
+            ),
+        ),
+    ),
+    
 );
