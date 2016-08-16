@@ -29,13 +29,17 @@ class PegawaiTable {
         $this->tableGateway = $tableGateway;
     }
     
-    public function fetchAll($paginated=false) {
+    public function fetchAll($paginated=false,Select $select=null) {
 //        $resultSet = $this->tableGateway->select();
 //        return $resultSet;
         
         if ($paginated) {
              // create a new Select object for the table album
-             $select = new Select('pegawai');
+             if (null===$select)
+                $select = new Select(); // perbaharui select
+             
+             $select ->from('pegawai');
+             
              // create a new result set based on the Album entity
              $resultSetPrototype = new ResultSet();
              $resultSetPrototype->setArrayObjectPrototype(new Pegawai());

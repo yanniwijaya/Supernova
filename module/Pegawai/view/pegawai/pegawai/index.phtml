@@ -3,6 +3,12 @@
 
 $title = 'Data Pegawai';
 $this->headTitle($title);
+$url_order = 'ASC';
+
+if ($order_by == 'nama')
+    $url_order = $order == 'ASC' ? 'DESC' : 'ASC';
+elseif ($order_by == 'nip')
+    $url_order = $order == 'ASC' ? 'DESC' : 'ASC';
 ?>
 
 <h1><?php echo $this->escapeHtml($title);?></h1>
@@ -10,52 +16,12 @@ $this->headTitle($title);
     <a href="<?php echo $this->url('pegawai', array('action'=>'add')); ?>">Add pegawai baru</a>
 </p>
 
-<!--<table class="table">
-    <tr>
-        <th>Nama</th>
-        <th>NIP</th>
-        <th>Mail</th>
-        <th>Jabatan</th>
-        <th>Status</th>
-        <th>Gender</th>
-        <th>Jenjang Jabatan</th>
-        <th>Sub Unit</th>
-        <th>Unit</th>
-        <th>&nbsp;</th>              
-    </tr>
-    
-    //<?php   
-//        $i = 0;
-//        $maksItemDitampilkan = 1000;
-//
-//        foreach ($pegawais as $pegawai) :  
-//    ?>
-    
-    <tr>
-        <td><?php echo $this->escapeHtml($pegawai->nama);?></td>
-        <td><?php echo $this->escapeHtml($pegawai->nip);?></td>
-        <td><?php echo $this->escapeHtml($pegawai->mail);?></td>
-        <td><?php echo $this->escapeHtml($pegawai->jabatan);?></td>
-        <td><?php echo $this->escapeHtml($pegawai->status);?></td>
-        <td><?php echo $this->escapeHtml($pegawai->gender);?></td>
-        <td><?php echo $this->escapeHtml($pegawai->jenjang_jabatan);?></td>
-        <td><?php echo $this->escapeHtml($pegawai->sub_unit);?></td>
-        <td><?php echo $this->escapeHtml($pegawai->unit);?></td>
-        <td>
-            <a href="<?php echo $this->url('pegawai',array('action'=>'edit', 
-                'id' => $pegawai->id)); ?>">Edit</a>
-            <a href="<?php echo $this->url('pegawai',array('action'=>'delete', 
-                'id' => $pegawai->id)); ?>">Delete</a>
-        </td>
-    </tr>
-</table>-->
-
 <table class="table">
      <tr>
-         <th>Nama</th>
-         <th>NIP</th>
+         <th><a href="<?php echo $this->url('pegawai',array('order_by' => 'nama', 'order' => $url_order));?>">Nama</a></th>
+         <th><a href="<?php echo $this->url('pegawai',array('order_by' => 'nip', 'order' => $url_order));?>">NIP</a></th>
          <th>&nbsp;</th>
-     </tr>
+     </tr>    
      <?php foreach ($this->paginator as $pegawai) : // <-- change here! ?>
          <tr>
              <td><?php echo $this->escapeHtml($pegawai->nama);?></td>

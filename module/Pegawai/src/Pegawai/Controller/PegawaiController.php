@@ -16,6 +16,7 @@ namespace Pegawai\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Db\Sql\Select;
 use Pegawai\Model\Pegawai;
 use Pegawai\Form\PegawaiForm;
 
@@ -33,21 +34,27 @@ class PegawaiController extends AbstractActionController{
     }
     
     public function indexAction() {
-//        return new ViewModel( array(
-//            'pegawais' => $this->getPegawaiTable()->fetchAll(),
-//        ));
-         // grab the paginator from the PegawaiTable
-         $paginator = $this->getPegawaiTable()->fetchAll(true);
+        $select = new Select(); 
+        
+        $order_by = $this->params()->fromRoute('order_by') ? $this->params()->fromRoute('order_by'):'id';
+        $order = $this->params()->fromRoute('order') ? $this->params()->fromRoute('order'):Select::ORDER_ASCENDING;
+        
+        $select->order($order_by.' '.$order);
+        
+        // grab the paginator from the PegawaiTable
+         $paginator = $this->getPegawaiTable()->fetchAll(true,$select);
          // set the current page to what has been passed in query string, or to 1 if none set
          $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
          // set the number of items per page to 10
          $paginator->setItemCountPerPage(10);
 
          return new ViewModel(array(
-             'paginator' => $paginator
+             'paginator' => $paginator,
+             'order_by' => $order_by,
+             'order' => $order,
          ));
     }
-    
+   
     public function addAction() {
          $form = new PegawaiForm();
          $form->get('submit')->setValue('Add');
